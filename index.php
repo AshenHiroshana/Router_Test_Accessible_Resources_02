@@ -1,6 +1,4 @@
 <?php
-
-
 //var_dump($_SERVER);
 $urlparts = explode("?", $_SERVER['REQUEST_URI']);
 $fullurl = $urlparts[0];
@@ -8,7 +6,6 @@ $parameters = "";
 if (isset($_GET['message'])){
     $parameters = $_GET['message'];
 }
-
 
 $url = explode("/", $fullurl);
 $source = $url[2];
