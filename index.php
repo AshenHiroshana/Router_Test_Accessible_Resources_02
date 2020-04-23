@@ -17,7 +17,7 @@ if(sizeof($url)>=4){
 switch ($source) {
 
     case "employee" :
-        require_once("def/employee.php");
+        require_once("controllers/employee.php");
         switch ($method){
             case "display" : display($parameters); break;
             case "finish"  : finish($parameters);
@@ -25,7 +25,7 @@ switch ($source) {
         break;
 
     case "project" :
-        require_once("def/project.php");
+        require_once("controllers/project.php");
         switch ($method){
             case "display" : display($parameters); break;
             case "finish"  : finish($parameters);
