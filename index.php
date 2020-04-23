@@ -1,13 +1,14 @@
 <?php
 
-echo "lala";
+
 //var_dump($_SERVER);
 $urlparts = explode("?", $_SERVER['REQUEST_URI']);
 $fullurl = $urlparts[0];
 $parameters = "";
-if(sizeof($urlparts)==2) {
-    $parameters = $urlparts[1];
+if (isset($_GET['message'])){
+    $parameters = $_GET['message'];
 }
+
 
 $url = explode("/", $fullurl);
 $source = $url[2];
@@ -16,11 +17,10 @@ if(sizeof($url)>=4){
     $method = $url[3];
 }
 
-
 switch ($source) {
 
     case "employee" :
-        require_once("employee.php");
+        require_once("def/employee.php");
         switch ($method){
             case "display" : display($parameters); break;
             case "finish"  : finish($parameters);
@@ -28,7 +28,7 @@ switch ($source) {
         break;
 
     case "project" :
-        require_once("project.php");
+        require_once("def/project.php");
         switch ($method){
             case "display" : display($parameters); break;
             case "finish"  : finish($parameters);
