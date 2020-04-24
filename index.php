@@ -3,8 +3,8 @@
 $urlparts = explode("?", $_SERVER['REQUEST_URI']);
 $fullurl = $urlparts[0];
 $parameters = "";
-if (isset($_GET['message'])){
-    $parameters = $_GET['message'];
+if (isset($_GET['id'])){
+    $parameters = $_GET['id'];
 }
 
 $url = explode("/", $fullurl);
@@ -17,18 +17,28 @@ if(sizeof($url)>=4){
 switch ($source) {
 
     case "employee" :
-        require_once("controllers/employee.php");
+        require_once("controllers/employeecontroller.php");
         switch ($method){
-            case "display" : display($parameters); break;
-            case "finish"  : finish($parameters);
+            case "find" :
+                if ($parameters == ""){
+                    EmployeeController::find();
+                }else{
+                    EmployeeController::findOne($parameters);
+                }
+                break;
         }
         break;
 
     case "project" :
-        require_once("controllers/project.php");
+        require_once("controllers/projectcontroller.php");
         switch ($method){
-            case "display" : display($parameters); break;
-            case "finish"  : finish($parameters);
+            case "find" :
+                if ($parameters == ""){
+                    projectcontroller::find();
+                }else{
+                    projectcontroller::findOne($parameters);
+                }
+                break;
         }
         break;
 
