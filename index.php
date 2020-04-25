@@ -13,6 +13,10 @@ $method = "";
 if(sizeof($url)>=4){
     $method = $url[3];
 }
+$id = "";
+if(sizeof($url)>=5){
+    $id = $url[4];
+}
 
 switch ($source) {
 
@@ -33,15 +37,36 @@ switch ($source) {
         require_once("controllers/projectcontroller.php");
         switch ($method){
             case "find" :
-                if ($parameters == ""){
+                if ($id == ""){
                     find();
                 }else{
-                    findOne($parameters);
+                    findOne($id);
                 }
                 break;
         }
         break;
 
+    case "api" :
+        switch ($method){
+            case "employee" :
+                require_once("controllers/employeecontroller.php");
+                if ($id == ""){
+                    find();
+                }else{
+                    findOne($id);
+                }
+                break;
+
+            case "project" :
+                require_once("controllers/projectcontroller.php");
+                if ($id == ""){
+                    find();
+                }else{
+                    findOne($id);
+                }
+                break;
+        }
+        break;
 
 
 }
