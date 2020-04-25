@@ -1,29 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Employee</title>
-
-</head>
-<body>
-<h1>Employee</h1>
     <?php
+        $host = "localhost";
+        $uname = "root";
+        $pwd = "1234";
+        $db = "routertest";
+        $con = new mysqli($host,$uname,$pwd,$db);
 
-        require_once("./dao/employeedao.php");
 
-        class EmployeeController{
 
-            public static function find(){
-                $emp = EmployeeDao::getAll();
-                $employees = json_encode($emp);
-                echo($employees);
+        function find(){
+            global $con;
+            $q2 = "select id,name from employee";
+            $st1 = $con->prepare($q2);
+            $st1->execute();
+            $result = $st1->get_result();
+            $employees=[];
+            while ($employee = $result->fetch_assoc()){
+                array_push($employees,$employee);
             }
-            public static function findOne($para){
-                $emp = EmployeeDao::getOne($para);
-                $employee = json_encode($emp);
-                echo($employee);
-            }
+            $st1->close();
+            $con->close();
+            header('Content-Type: application/json');
+            echo json_encode($employees);
         }
+        function findOne($para){
+            global $con;
+            $q2 = "select id,name from employee where id = ".$para;
+            $st1 = $con->prepare($q2);
+            $st1->execute();
+            $result = $st1->get_result();
+            $employee = $result->fetch_assoc();
+            $st1->close();
+            $con->close();
+            header('Content-Type: application/json');
+            echo json_encode($employee);
+        }
+
     ?>
-</body>
-</html>

@@ -21,9 +21,9 @@ switch ($source) {
         switch ($method){
             case "find" :
                 if ($parameters == ""){
-                    EmployeeController::find();
+                    find();
                 }else{
-                    EmployeeController::findOne($parameters);
+                    findOne($parameters);
                 }
                 break;
         }
@@ -34,9 +34,9 @@ switch ($source) {
         switch ($method){
             case "find" :
                 if ($parameters == ""){
-                    projectcontroller::find();
+                    find();
                 }else{
-                    projectcontroller::findOne($parameters);
+                    findOne($parameters);
                 }
                 break;
         }

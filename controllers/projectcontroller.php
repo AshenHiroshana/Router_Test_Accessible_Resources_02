@@ -1,28 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Project</title>
+<?php
+$host = "localhost";
+$uname = "root";
+$pwd = "1234";
+$db = "routertest";
+$con = new mysqli($host,$uname,$pwd,$db);
 
-</head>
-<body>
-<h1>Project</h1>
-    <?php
-    require_once("./dao/projectdao.php");
 
-    class ProjectController{
 
-        public static function find(){
-            $pro = ProjectDao::getAll();
-            $projects = json_encode($pro);
-            echo($projects);
-        }
-        public static function findOne($para){
-            $pro = ProjectDao::getOne($para);
-            $project = json_encode($pro);
-            echo($project);
-        }
+function find(){
+    global $con;
+    $q2 = "select id,name,supervisor from project";
+    $st1 = $con->prepare($q2);
+    $st1->execute();
+    $result = $st1->get_result();
+    $projects=[];
+    while ($project = $result->fetch_assoc()){
+        array_push($projects,$project);
     }
-    ?>
-</body>
-</html>
+    $st1->close();
+    $con->close();
+    header('Content-Type: application/json');
+    echo json_encode($projects);
+}
+function findOne($para){
+    global $con;
+    $q2 = "select id,name,supervisor from project where id = ".$para;
+    $st1 = $con->prepare($q2);
+    $st1->execute();
+    $result = $st1->get_result();
+    $project = $result->fetch_assoc();
+    $st1->close();
+    $con->close();
+    header('Content-Type: application/json');
+    echo json_encode($project);
+}
+
+?>
